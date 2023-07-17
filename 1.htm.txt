@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+
+  <title>增删改查接口页面</title>
+  <style>
+    .navbar-right {
+      float: right;
+    }
+
+    .navbar-right ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar-right li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .navbar-right li a {
+      color: #333;
+      text-decoration: none;
+      padding: 10px;
+    }
+
+    .navbar-right li.active a {
+      font-weight: bold;
+    }
+
+    .navbar-right li.dropdown:hover ul {
+      display: block;
+    }
+
+    .navbar-right li.dropdown ul {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    .navbar-right li.dropdown ul li {
+      display: block;
+      margin: 5px 0;
+    }
+
+    .navbar-right li.dropdown ul li a {
+      display: block;
+      color: #333;
+      text-decoration: none;
+      padding: 5px;
+    }
+
+    .navbar-right li.dropdown ul li a:hover {
+      background-color: #f5f5f5;
+    }
+
+    .alert {
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .success {
+      background-color: #dff0d8;
+      color: #3c763d;
+    }
+
+    .error {
+      background-color: #f2dede;
+      color: #a94442;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+    }
+
+    .pagination li {
+      margin: 0 5px;
+    }
+
+    .pagination a {
+      color: #333;
+      text-decoration: none;
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .pagination a:hover {
+      background-color: #f5f5f5;
+    }
+
+    .pagination .active a {
+      background-color: #007bff;
+      color: #fff;
+      border-color: #007bff;
+    }
+
+    /* 表格样式 */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .custom-table th,
+    .custom-table td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .custom-table th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+
+    /* 表格标题样式 */
+    h2 {
+      margin-top: 0;
+    }
+
+    /* 表单样式 */
+    .custom-form {
+      margin-bottom: 20px;
+    }
+
+    .custom-form label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .custom-form input[type="text"] {
+      padding: 8px;
+      width: 200px;
+    }
+
+    .custom-form button[type="submit"] {
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    .custom-form button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    /* 表单样式 */
+    .create-form {
+      margin-bottom: 20px;
+    }
+
+    .create-form label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .create-form input[type="text"],
+    .create-form input[type="date"],
+    .create-form textarea {
+      padding: 8px;
+      width: 200px;
+    }
+
+    .create-form button[type="submit"] {
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    .create-form button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="collapse navbar-collapse navbar-right" id="navbar">
+    <ul class="nav navbar-nav navbar-right">
+      <li class="active">
+        <a aria-expanded="false" role="button" aria-haspopup="true" class="dropdown-toggle" href="index.html"
+          title="Home">首页</a>
+      </li>
+      <li class="">
+        <a aria-expanded="false" role="button" aria-haspopup="true" class="dropdown-toggle" href="about.html"
+          title="About us">大事记</a>
+      </li>
+      <li class="dropdown">
+        <a aria-expanded="false" role="button" aria-haspopup="true" class="dropdown-toggle" href="Product.html"
+          title="Product service">科技创新</a>
+      </li>
+      <li class="dropdown">
+        <a aria-expanded="false" role="button" aria-haspopup="true" class="dropdown-toggle" href="ZSGC.html">数据修改</a>
+      </li>
+    </ul>
+  </div>
+
+  </div>
+  <h1>增删改查</h1>
+
+  <!-- 表单用于创建新数据 -->
+  <h2>新增</h2>
+  <form id="createForm" class="create-form">
+    <label for="event_id">Event ID:</label>
+    <input type="text" id="event_id" name="event_id" required><br>
+
+    <label for="event_title">Event Title:</label>
+    <input type="text" id="event_title" name="event_title" required><br>
+
+    <label for="event_date">Event Date:</label>
+    <input type="date" id="event_date" name="event_date" required><br>
+
+    <label for="event_content">Event Content:</label>
+    <textarea id="event_content" name="event_content" required></textarea><br>
+
+    <label for="event_pic">Event Picture:</label>
+    <input type="text" id="event_pic" name="event_pic" required><br>
+
+    <label for="is_del">Is Deleted:</label>
+    <input type="checkbox" id="is_del" name="is_del"><br>
+    <button type="submit">Create</button>
+  </form>
+
+  <!-- 表单用于查询数据 -->
+  <h2>查询数据</h2>
+  <form id="searchForm" class="custom-form">
+    <label for="EVENT_ID">事件ID:</label>
+    <input type="text" id="EVENT_ID" name="EVENT_ID">
+    <button type="submit">查找</button>
+  </form>
+
+  <!-- 表格用于展示已有数据 -->
+  <h2>事件查看</h2>
+  <table id="dataTable" class="custom-table">
+    <thead>
+      <tr>
+        <th>事件ID</th>
+        <th>事件名</th>
+        <th>事件日期</th>
+        <th>事件内容</th>
+        <th>事件图片</th>
+        <th>是否删除</th>
+      </tr>
+    </thead>
+    <tbody id="dataBody">
+      <!-- 数据行将通过JavaScript动态添加 -->
+    </tbody>
+  </table>
+
+  <nav aria-label="Page navigation">
+    <ul class="pagination" id="pagination">
+      <li>
+        <a href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+      <li>
+        <a href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- 弹窗 -->
+  <div id="alertContainer"></div>
+
+  <!-- JavaScript代码 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var currentPage = 1;
+      var totalPages = 1;
+
+      // 显示弹窗
+      function showAlert(message, type) {
+        var alertClass = type === 'success' ? 'success' : 'error';
+        var alert = '<div class="alert ' + alertClass + '">' + message + '</div>';
+        $('#alertContainer').append(alert);
+        setTimeout(function () {
+          $('.alert').fadeOut(500, function () {
+            $(this).remove();
+          });
+        }, 2000);
+      }
+
+      // 获取数据并展示在表格中
+      function getData(page) {
+        // $.get('/api/data?page=' + page, function (data) {
+        $('#dataBody').empty();
+        //Mock数据
+        data1 = {}
+        console.log(307, page)
+        if (page == 1) {
+          data1 = {
+            results: [
+              {
+                event_id: 1,
+                event_title: '烟草1',
+                event_date: '07-01',
+                event_content: '卷香烟',
+                event_pic: 'pic1',
+                is_del: "是",
+              },
+              {
+                event_id: 2,
+                event_title: '烟草1',
+                event_date: '07-02',
+                event_content: '包香烟',
+                event_pic: 'pic2',
+                is_del: "否",
+              }
+            ],
+            total_pages: 6,
+            page: 1,
+          }
+        }
+        if (page == 2) {
+          data1 = {
+            results: [
+              {
+                event_id: 1,
+                event_title: '烟草2',
+                event_date: '07-03',
+                event_content: '卷香烟',
+                event_pic: 'pic1',
+                is_del: "是",
+              },
+              {
+                event_id: 2,
+                event_title: '烟草2',
+                event_date: '07-04',
+                event_content: '包香烟',
+                event_pic: 'pic2',
+                is_del: "否",
+              }
+            ],
+            total_pages: 6,
+            page: 2,
+          }
+        }
+        if (page == 3) {
+          data1 = {
+            results: [
+              {
+                event_id: 1,
+                event_title: '烟草3',
+                event_date: '07-03',
+                event_content: '卷香烟',
+                event_pic: 'pic1',
+                is_del: "是",
+              },
+              {
+                event_id: 2,
+                event_title: '烟草3',
+                event_date: '07-04',
+                event_content: '包香烟',
+                event_pic: 'pic2',
+                is_del: "否",
+              }
+            ],
+            total_pages: 6,
+            page: 3,
+          }
+        }
+        console.log(380, data1)
+        //
+        data1.results.forEach(function (item) {
+          var row = '<tr>' +
+            // '<td>' + item.name + '</td>' +
+            // '<td>' + item.age + '</td>' +
+            '<td>' + item.event_id + '</td>' +
+            '<td>' + item.event_title + '</td>' +
+            '<td>' + item.event_date + '</td>' +
+            '<td>' + item.event_content + '</td>' +
+            '<td>' + item.event_pic + '</td>' +
+            '<td>' + item.is_del + '</td>' +
+            '<td>' +
+            '<button class="editButton" data-id="' + item.id + '">Edit</button>' +
+            '<button class="deleteButton" data-id="' + item.id + '">Delete</button>' +
+            '</td>' +
+            '</tr>';
+          $('#dataBody').append(row);
+        });
+        currentPage = data1.page;
+        totalPages = data1.total_pages;
+        updatePagination();
+        // });
+      }
+
+      // 初始化数据
+      getData(currentPage);
+
+      // 创建数据
+      $('#createForm').submit(function (event) {
+        event.preventDefault();
+        var event_id = $('#event_id').val();
+        var event_title = $('#event_title').val();
+        var event_date = $('#event_date').val();
+        var event_content = $('#event_content').val();
+        var event_pic = $('#event_pic').val();
+        var is_del = $('#is_del').val();
+        // $.post('/api/data', { name: name, age: age })
+        $.post('/api/data', {
+          event_id: event_id, event_title: event_title,
+          event_date: event_date, event_content: event_content, event_pic: event_pic, is_del: is_del
+        })
+          .done(function () {
+            getData(currentPage);
+            // $('#name').val('');
+            // $('#age').val('');
+            $('#event_id').val('');
+            $('#event_title').val('');
+            $('#event_date').val('');
+            $('#event_content').val('');
+            $('#event_pic').val('');
+            $('#is_del').val('');
+            showAlert('Data created successfully', 'success');
+          })
+          .fail(function () {
+            showAlert('Failed to create data', 'error');
+          });
+      });
+
+      // 查询数据
+      $('#searchForm').submit(function (event) {
+        event.preventDefault();
+        var name = $('# EVENT_ID').val();
+        currentPage = 1;
+        $.get('/api/data?EVENT_ID=' + EVENT_ID + '&page=' + currentPage)
+          .done(function (data) {
+            $('#dataBody').empty();
+            data.results.forEach(function (item) {
+              var row = '<tr>' +
+                //   '<td>' + item.name + '</td>' +
+                //   '<td>' + item.age + '</td>' +
+                '<td>' + item.event_id + '</td>' +
+                '<td>' + item.event_title + '</td>' +
+                '<td>' + item.event_date + '</td>' +
+                '<td>' + item.event_content + '</td>' +
+                '<td>' + item.event_pic + '</td>' +
+                '<td>' + item.is_del + '</td>' +
+                '<td>' +
+                '<button class="editButton" data-id="' + item.id + '">Edit</button>' +
+                '<button class="deleteButton" data-id="' + item.id + '">Delete</button>' +
+                '</td>' +
+                '</tr>';
+              $('#dataBody').append(row);
+            });
+            currentPage = data.page;
+            totalPages = data.total_pages;
+            updatePagination();
+          })
+          .fail(function () {
+            showAlert('Failed to search data', 'error');
+          });
+      });
+
+      // 编辑数据
+      $(document).on('click', '.editButton', function () {
+        var id = $(this).data('id');
+        $.get('/api/data/' + id, function (data) {
+          $('#updateevent_id').val('');
+          $('#updateevent_title').val('');
+          $('#updateevent_date').val('');
+          $('#updateevent_content').val('');
+          $('#updateevent_pic').val('');
+          $('#updateis_del').val('');
+        });
+      });
+
+      // 更新数据
+      $('#updateForm').submit(function (event) {
+        event.preventDefault();
+        var event_id = $('#event_id').val();
+        var event_title = $('#event_title').val();
+        var event_date = $('#event_date').val();
+        var event_content = $('#event_content').val();
+        var event_pic = $('#event_pic').val();
+        var is_del = $('#is_del').val();
+        $.ajax({
+          url: '/api/data/' + id,
+          method: 'PUT',
+          data: {
+            event_id: event_id, event_title: event_title,
+            event_date: event_date, event_content: event_content, event_pic: event_pic, is_del: is_del
+          }
+        })
+          .done(function () {
+            getData(currentPage);
+            $('#updateevent_id').val('');
+            $('#updateevent_title').val('');
+            $('#updateevent_date').val('');
+            $('#updateevent_content').val('');
+            $('#updateevent_pic').val('');
+            $('#updateis_del').val('');
+            showAlert('Data updated successfully', 'success');
+          })
+          .fail(function () {
+            showAlert('Failed to update data', 'error');
+          });
+      });
+
+      // 删除数据
+      $(document).on('click', '.deleteButton', function () {
+        var id = $(this).data('id');
+        $.ajax({
+          url: '/api/data/' + id,
+          method: 'DELETE'
+        })
+          .done(function () {
+            getData(currentPage);
+            showAlert('Data deleted successfully', 'success');
+          })
+          .fail(function () {
+            showAlert('Failed to delete data', 'error');
+          });
+      });
+
+      // 更新分页控件
+      function updatePagination() {
+        const paginationContainer = document.getElementById('pagination');
+        paginationContainer.innerHTML = ''; // 清空原有的页码按钮
+
+        // 添加 "Previous" 按钮
+        const previousButton = document.createElement('button');
+        previousButton.textContent = 'Previous';
+        previousButton.addEventListener('click', previousPage);
+        paginationContainer.appendChild(previousButton);
+
+        // 添加页码按钮
+        for (let i = 1; i <= totalPages; i++) {
+          const pageButton = document.createElement('button');
+          pageButton.textContent = i;
+          // pageButton.addEventListener('click', getEvents(i));
+          pageButton.addEventListener('click', (e) => {
+            currentPage = Number(e.target.innerHTML)
+            console.log(498, e.target.innerHTML, currentPage)
+            getData(currentPage)
+          });
+          paginationContainer.appendChild(pageButton);
+        }
+
+        // 添加 "Next" 按钮
+        const nextButton = document.createElement('button');
+        nextButton.textContent = 'Next';
+        nextButton.addEventListener('click', nextPage);
+        paginationContainer.appendChild(nextButton);
+
+        // 更新当前页码样式
+        const currentPageButton = paginationContainer.querySelector(`button:nth-child(${currentPage + 1})`);
+        currentPageButton.classList.add('current');
+      }
+
+      // 上一页
+      function previousPage() {
+        console.log(519, currentPage)
+        if (currentPage > 1) {
+          currentPage--;
+          console.log(515, currentPage)
+          getData(currentPage);
+        }
+      }
+
+      // 下一页
+      function nextPage() {
+        console.log(528, currentPage)
+        if (currentPage < totalPages) {
+          currentPage = currentPage + 1;
+          console.log(529, currentPage)
+          getData(currentPage);
+        }
+      }
+
+      const pagination = document.querySelector('.pagination');
+      const pageLinks = pagination.querySelectorAll('a');
+
+      pageLinks.forEach((link) => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const currentPage = pagination.querySelector('.active');
+          currentPage.classList.remove('active');
+          link.parentNode.classList.add('active');
+          // 在这里执行更新内容的操作
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
